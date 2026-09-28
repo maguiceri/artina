@@ -342,3 +342,22 @@
   new IntersectionObserver(([e]) => e.isIntersecting ? restart() : stop()).observe(root);
   layout();
 })();
+
+/* ---------- Visor de imágenes (flyer de combos, fotos de cumpleaños) ---------- */
+(() => {
+  const dlg = document.querySelector('.lightbox');
+  if (!dlg || !dlg.showModal) return;
+  const img = dlg.querySelector('.lightbox__img');
+
+  document.querySelectorAll('[data-lightbox]').forEach(el =>
+    el.addEventListener('click', () => {
+      img.src = el.dataset.lightbox;
+      img.alt = el.dataset.alt || '';
+      dlg.showModal();
+      dlg.scrollTop = 0;
+    }));
+
+  dlg.querySelector('.lightbox__close').addEventListener('click', () => dlg.close());
+  // clic fuera de la imagen cierra
+  dlg.addEventListener('click', e => { if (e.target === dlg) dlg.close(); });
+})();
