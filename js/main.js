@@ -277,6 +277,32 @@
   });
 })();
 
+/* ---------- Efectos de entrada al hacer scroll ---------- */
+(() => {
+  const all = [...document.querySelectorAll('.reveal')];
+  const show = (el, delay = 0) => {
+    el.style.setProperty('--delay', delay + 's');
+    el.classList.add('is-visible');
+    el.addEventListener('transitionend', () => el.classList.add('is-done'), { once: true });
+  };
+  if (!('IntersectionObserver' in window)) { all.forEach(el => show(el)); return; }
+
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (!e.isIntersecting) return;
+      io.unobserve(e.target);
+      // un grupo revela a sus hijos en cascada; un elemento suelto se revela solo
+      if (e.target.hasAttribute('data-reveal-group')) {
+        e.target.querySelectorAll('.reveal').forEach((el, i) => show(el, i * .12));
+      } else show(e.target);
+    });
+  }, { threshold: .08, rootMargin: '0px 0px -6% 0px' });
+
+  const groups = [...document.querySelectorAll('[data-reveal-group]')];
+  groups.forEach(g => io.observe(g));
+  all.filter(el => !el.closest('[data-reveal-group]')).forEach(el => io.observe(el));
+})();
+
 /* ---------- Carrusel de comida (autoloop, la del frente se agranda) ---------- */
 (() => {
   const root = document.querySelector('.carousel');

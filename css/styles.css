@@ -506,3 +506,33 @@ button.btn { cursor: pointer; }
 @media (max-width: 860px) {
   .footer { grid-template-columns: 1fr; }
 }
+
+/* ---------- Efectos de entrada al hacer scroll ----------
+   Sólo se anima transform + opacity (liviano), y las imágenes ya están
+   precargadas, así que lo único que se ve es el movimiento.           */
+
+.js .reveal {
+  opacity: 0;
+  transform: var(--from, translateY(44px));
+  transition: opacity .7s ease-out, transform .9s var(--ease);
+  transition-delay: var(--delay, 0s);
+  will-change: opacity, transform;
+}
+.js .reveal[data-reveal="left"]  { --from: translateX(-70px); }
+.js .reveal[data-reveal="right"] { --from: translateX(70px); }
+.js .reveal[data-reveal="zoom"]  { --from: translateY(30px) scale(.93); }
+.js .reveal.is-visible { opacity: 1; transform: none; }
+.js .reveal.is-done { will-change: auto; }
+
+@media (max-width: 860px) {
+  /* en celular las entradas laterales desbordarían la pantalla: suben */
+  .js .reveal[data-reveal="left"],
+  .js .reveal[data-reveal="right"] { --from: translateY(44px); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .js .reveal { opacity: 1; transform: none; transition: none; }
+}
+@media (max-width: 640px) {
+  /* la galería es un carrusel horizontal: sin desplazamiento para no generar scroll interno */
+  .js .birthday__gallery .reveal { --from: scale(.94); }
+}
