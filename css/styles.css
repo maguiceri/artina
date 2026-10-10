@@ -45,17 +45,6 @@ body {
 img { display: block; max-width: 100%; height: auto; }
 a { color: inherit; }
 
-/* grano de papel muy sutil */
-body::before {
-  content: "";
-  position: fixed; inset: 0;
-  pointer-events: none;
-  z-index: 100;
-  opacity: .35;
-  mix-blend-mode: multiply;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .45 0 0 0 0 .32 0 0 0 0 .22 0 0 0 .09 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-}
-
 .visually-hidden {
   position: absolute !important;
   width: 1px; height: 1px; overflow: hidden;
@@ -393,6 +382,7 @@ body::before {
 .birthday__media img {
   width: 100%; aspect-ratio: 16 / 10; object-fit: cover;
   border-radius: 24px;
+  background: var(--arena);
   box-shadow: 0 40px 60px -40px rgba(58, 36, 25, .45);
 }
 .birthday__card {
@@ -416,7 +406,7 @@ button.btn { cursor: pointer; }
   margin-top: clamp(40px, 6vw, 72px);
 }
 .birthday__photo {
-  display: block; padding: 0; border: 0; background: none; cursor: zoom-in;
+  display: block; padding: 0; border: 0; background: var(--arena); cursor: zoom-in;
   border-radius: 18px; overflow: hidden;
   box-shadow: 0 30px 50px -35px rgba(58, 36, 25, .5);
 }
@@ -515,13 +505,4 @@ button.btn { cursor: pointer; }
 .footer__copy { grid-column: 1 / -1; margin: 0; padding-top: 24px; border-top: 1px solid var(--arena); font-size: .85rem; color: var(--cacao); }
 @media (max-width: 860px) {
   .footer { grid-template-columns: 1fr; }
-}
-
-/* ---------- Revelado al hacer scroll ---------- */
-
-.reveal { opacity: 0; transform: translateY(24px); transition: opacity 1s var(--ease), transform 1s var(--ease); }
-.reveal.is-visible { opacity: 1; transform: none; }
-.no-js .reveal { opacity: 1; transform: none; }
-@media (prefers-reduced-motion: reduce) {
-  .reveal { opacity: 1; transform: none; transition: none; }
 }

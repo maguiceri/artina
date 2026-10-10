@@ -259,25 +259,22 @@
   });
 })();
 
-/* ---------- Revelado al hacer scroll ---------- */
+/* ---------- Todo listo antes de llegar con el scroll ---------- */
 (() => {
-  const items = document.querySelectorAll('.reveal');
-  if (!('IntersectionObserver' in window)) {
-    items.forEach(el => el.classList.add('is-visible'));
-    return;
-  }
-  const io = new IntersectionObserver(entries => {
-    entries.forEach(e => {
-      if (e.isIntersecting) {
-        e.target.classList.add('is-visible');
-        io.unobserve(e.target);
-      }
-    });
-  }, { rootMargin: '0px 0px -10% 0px' });
-  items.forEach(el => io.observe(el));
-
   const y = document.getElementById('year');
   if (y) y.textContent = new Date().getFullYear();
+
+  // Las fotos de abajo se bajan con prioridad baja mientras corre la intro;
+  // las dejamos decodificadas para que no aparezcan "a medias" al scrollear.
+  document.querySelectorAll('main img[fetchpriority="low"], .footer img')
+    .forEach(img => img.decode?.().catch(() => {}));
+
+  // El flyer de combos se precarga cuando la página ya terminó de cargar,
+  // así el visor abre al instante.
+  window.addEventListener('load', () => {
+    const idle = window.requestIdleCallback || (fn => setTimeout(fn, 1500));
+    idle(() => document.querySelectorAll('button.btn[data-lightbox]').forEach(el => { new Image().src = el.dataset.lightbox; }));
+  });
 })();
 
 /* ---------- Carrusel de comida (autoloop, la del frente se agranda) ---------- */
@@ -319,10 +316,6 @@
       dots[i].setAttribute('aria-selected', o === 0);
     });
   }
-
-  // las fotos se bajan durante la intro; las dejamos decodificadas para que
-  // ya estén listas cuando el carrusel entra en pantalla
-  slides.forEach(sl => sl.querySelector('img').decode?.().catch(() => {}));
 
   const go = i => { active = (i + n) % n; layout(); };
   const stop = () => clearInterval(timer);
