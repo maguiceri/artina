@@ -320,6 +320,10 @@
     });
   }
 
+  // las fotos se bajan durante la intro; las dejamos decodificadas para que
+  // ya estén listas cuando el carrusel entra en pantalla
+  slides.forEach(sl => sl.querySelector('img').decode?.().catch(() => {}));
+
   const go = i => { active = (i + n) % n; layout(); };
   const stop = () => clearInterval(timer);
   const restart = () => { stop(); timer = setInterval(() => go(active + 1), INTERVAL); };

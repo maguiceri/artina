@@ -339,6 +339,7 @@ body::before {
 .slide img {
   width: 100%; aspect-ratio: 4 / 5; object-fit: cover;
   border-radius: 18px;
+  background: var(--arena);
   box-shadow: 0 40px 60px -30px rgba(58, 36, 25, .55);
 }
 .slide figcaption {
