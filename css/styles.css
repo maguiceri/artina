@@ -536,3 +536,38 @@ button.btn { cursor: pointer; }
   /* la galería es un carrusel horizontal: sin desplazamiento para no generar scroll interno */
   .js .birthday__gallery .reveal { --from: scale(.94); }
 }
+
+/* ---------- Página de políticas ---------- */
+
+.policy {
+  max-width: 760px;
+  margin: 0 auto;
+  padding: clamp(130px, 18vw, 170px) var(--gutter) clamp(72px, 10vw, 120px);
+}
+.policy .display { font-size: clamp(2.4rem, 6vw, 3.8rem); }
+.policy__block { margin-top: clamp(36px, 5vw, 52px); }
+.policy__block h2 {
+  margin: 0 0 .8rem;
+  padding-bottom: .6rem;
+  border-bottom: 1px solid var(--nude);
+  font: 500 clamp(1.5rem, 3vw, 1.9rem)/1.2 var(--serif);
+  color: var(--tinta);
+}
+.policy__block ul { margin: 0; padding-left: 1.2em; color: var(--cacao); }
+.policy__block li { margin: .55rem 0; }
+.policy__block li::marker { color: var(--caramelo); }
+.policy__block strong { font-weight: 700; color: var(--espresso); }
+.policy__accept {
+  margin: clamp(40px, 6vw, 56px) 0 0;
+  padding: 1.2rem 1.4rem;
+  border-radius: 14px;
+  background: var(--nude);
+  font-weight: 600;
+  color: var(--espresso);
+}
+.policy__help { margin-top: 2rem; display: flex; flex-wrap: wrap; align-items: center; gap: 12px 20px; }
+.policy__help p { margin: 0; color: var(--cacao); }
+.link-arrow--back::after { content: none; }
+.link-arrow--back::before { content: "←"; font-family: var(--serif); font-size: 1.2em; letter-spacing: 0; }
+.footer--slim { display: block; padding: 28px var(--gutter); }
+.footer--slim .footer__copy { border: 0; padding: 0; }

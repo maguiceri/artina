@@ -1,0 +1,6 @@
+{
+  "redirects": [
+    { "source": "/index.php/politicas-condiciones", "destination": "/politicas.html", "permanent": true },
+    { "source": "/index.php/politicas-condiciones/", "destination": "/politicas.html", "permanent": true }
+  ]
+}
